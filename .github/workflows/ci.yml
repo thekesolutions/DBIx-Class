@@ -41,13 +41,13 @@ jobs:
       run: perl Makefile.PL
 
     - name: Install dependencies
-      run: make installdeps
+      run: ${{ matrix.os == 'windows-latest' && 'dmake installdeps' || 'make installdeps' }}
 
     - name: Build
-      run: make
+      run: ${{ matrix.os == 'windows-latest' && 'dmake' || 'make' }}
 
     - name: Test
-      run: make test
+      run: ${{ matrix.os == 'windows-latest' && 'dmake test' || 'make test' }}
 
     - name: Test our scalar reference fix
       run: perl -Ilib t/752sqlite_scalar_ref_warning.t
