@@ -34,13 +34,14 @@ jobs:
     - name: Show Perl version
       run: perl -v
 
-    - name: Install dependencies
-      run: |
-        cpanm --notest --installdeps .
-        cpanm --notest Module::Install
+    - name: Install Module::Install
+      run: cpanm --notest Module::Install
 
     - name: Configure
       run: perl Makefile.PL
+
+    - name: Install dependencies
+      run: make installdeps
 
     - name: Build
       run: make
